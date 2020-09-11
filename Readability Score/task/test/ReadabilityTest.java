@@ -43,22 +43,22 @@ public class ReadabilityTest extends StageTest<TestClue> {
                 12.86,
                 "18-24"))
                 .addFile("input.txt",
-                "Readability is " +
-                    "the ease with which a reader can " +
-                    "understand a written text. In natural " +
-                    "language, the readability of text depends " +
-                    "on its content and its presentation. " +
-                    "Researchers have used various factors " +
-                    "to measure readability. Readability is " +
-                    "more than simply legibility, which is a " +
-                    "measure of how easily a reader can distinguish " +
-                    "individual letters or characters from each other. " +
-                    "Higher readability eases reading effort and speed " +
-                    "for any reader, but it is especially important for " +
-                    "those who do not have high reading comprehension. " +
-                    "In readers with poor reading comprehension, raising " +
-                    "the readability level of a text from mediocre to good " +
-                    "can make the difference between success and failure")
+                    "Readability is " +
+                        "the ease with which a reader can " +
+                        "understand a written text. In natural " +
+                        "language, the readability of text depends " +
+                        "on its content and its presentation. " +
+                        "Researchers have used various factors " +
+                        "to measure readability. Readability is " +
+                        "more than simply legibility, which is a " +
+                        "measure of how easily a reader can distinguish " +
+                        "individual letters or characters from each other. " +
+                        "Higher readability eases reading effort and speed " +
+                        "for any reader, but it is especially important for " +
+                        "those who do not have high reading comprehension. " +
+                        "In readers with poor reading comprehension, raising " +
+                        "the readability level of a text from mediocre to good " +
+                        "can make the difference between success and failure")
                 .addArguments("input.txt"),
 
             new TestCase<TestClue>().setAttach(new TestClue(
@@ -68,16 +68,16 @@ public class ReadabilityTest extends StageTest<TestClue> {
                 5.98,
                 "11-12"))
                 .addFile("in.txt",
-                "This is the page of the Simple English Wikipedia. " +
-                    "A place where people work together to write encyclopedias " +
-                    "in different languages. That includes children and adults " +
-                    "who are learning English. There are 142,262 articles on the " +
-                    "Simple English Wikipedia. All of the pages are free to use. " +
-                    "They have all been published under both the Creative Commons" +
-                    " License 3 and the GNU Free Documentation License. " +
-                    "You can help here! You may change these pages and make new " +
-                    "pages. Read the help pages and other good pages to learn " +
-                    "how to write pages here. You may ask questions at Simple talk.")
+                    "This is the page of the Simple English Wikipedia. " +
+                        "A place where people work together to write encyclopedias " +
+                        "in different languages. That includes children and adults " +
+                        "who are learning English. There are 142,262 articles on the " +
+                        "Simple English Wikipedia. All of the pages are free to use. " +
+                        "They have all been published under both the Creative Commons" +
+                        " License 3 and the GNU Free Documentation License. " +
+                        "You can help here! You may change these pages and make new " +
+                        "pages. Read the help pages and other good pages to learn " +
+                        "how to write pages here. You may ask questions at Simple talk.")
                 .addArguments("in.txt"),
 
             new TestCase<TestClue>().setAttach(new TestClue(
@@ -87,28 +87,28 @@ public class ReadabilityTest extends StageTest<TestClue> {
                 11.19,
                 "17-18"))
                 .addFile("in.txt",
-                "Gothic architecture are building designs, " +
-                    "as first pioneered in Western Europe in the Middle Ages. " +
-                    "It began in France in the 12th century. The Gothic style " +
-                    "grew out of Romanesque architecture. It lasted until the " +
-                    "16th century. By that time the Renaissance style of " +
-                    "architecture had become popular. The important features " +
-                    "of Gothic architecture are the pointed arch, the ribbed " +
-                    "vault, the flying buttress, and stained glass windows " +
-                    "which are explained below. Gothic architecture is best " +
-                    "known as the style of many " +
-                    "of the great cathedrals, abbeys and churches of Europe. " +
-                    "It is also the architecture of many castles, palaces, " +
-                    "town halls, universities, and also some houses. " +
-                    "Many church buildings still remain from this period. " +
-                    "Even the smallest Gothic churches are often very beautiful, " +
-                    "while many of the larger churches and cathedrals are " +
-                    "thought to be priceless works of art. Many are listed " +
-                    "with the United Nations Educational, Scientific and " +
-                    "Cultural Organization (UNESCO) as World Heritage Sites. " +
-                    "In the 19th century, the Gothic style became popular " +
-                    "again, particularly for building churches and universities. " +
-                    "This style is called Gothic Revival architecture.")
+                    "Gothic architecture are building designs, " +
+                        "as first pioneered in Western Europe in the Middle Ages. " +
+                        "It began in France in the 12th century. The Gothic style " +
+                        "grew out of Romanesque architecture. It lasted until the " +
+                        "16th century. By that time the Renaissance style of " +
+                        "architecture had become popular. The important features " +
+                        "of Gothic architecture are the pointed arch, the ribbed " +
+                        "vault, the flying buttress, and stained glass windows " +
+                        "which are explained below. Gothic architecture is best " +
+                        "known as the style of many " +
+                        "of the great cathedrals, abbeys and churches of Europe. " +
+                        "It is also the architecture of many castles, palaces, " +
+                        "town halls, universities, and also some houses. " +
+                        "Many church buildings still remain from this period. " +
+                        "Even the smallest Gothic churches are often very beautiful, " +
+                        "while many of the larger churches and cathedrals are " +
+                        "thought to be priceless works of art. Many are listed " +
+                        "with the United Nations Educational, Scientific and " +
+                        "Cultural Organization (UNESCO) as World Heritage Sites. " +
+                        "In the 19th century, the Gothic style became popular " +
+                        "again, particularly for building churches and universities. " +
+                        "This style is called Gothic Revival architecture.")
                 .addArguments("in.txt")
         );
     }
@@ -144,8 +144,23 @@ public class ReadabilityTest extends StageTest<TestClue> {
                 }
             }
             if (line.contains("score is:")) {
+
+                CheckResult wrongAnswer = new CheckResult(false, "Can't parse the score!" +
+                    "\nYour output format should be like in examples.");
                 foundScore = true;
-                double actualScore = Double.parseDouble(line.split(":")[1]);
+
+                String[] parsedLine = line.split(":");
+                if (parsedLine.length != 2) {
+                    return wrongAnswer;
+                }
+
+                double actualScore;
+                try {
+                    actualScore = Double.parseDouble(parsedLine[1].trim());
+                } catch (NumberFormatException ignored) {
+                    return wrongAnswer;
+                }
+
                 if (abs(actualScore - clue.score) > 0.2) {
                     return new CheckResult(false, "Wrong score");
                 }
