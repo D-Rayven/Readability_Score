@@ -12,7 +12,6 @@ class Problem {
                 }
             }
             System.out.println(max);
-            return;
         } else if ("MIN".equals(operator)) {
             int min = Integer.parseInt(args[1]);
             for (int i = 2; i < args.length; i++) {
@@ -21,14 +20,12 @@ class Problem {
                 }
             }
             System.out.println(min);
-            return;
         } else {
             int sum = 0;
             for (int i = 1; i < args.length; i++) {
                 sum = sum + Integer.parseInt(args[i]);
             }
             System.out.println(sum);
-            return;
         }
     }
 }
